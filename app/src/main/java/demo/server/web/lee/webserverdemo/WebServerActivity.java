@@ -25,11 +25,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 
 
 public class WebServerActivity extends ActionBarActivity {
 
     Button btn;
+    Button dbBtn;
     Process serverProcess = null;
     TextView logText;
     @Override
@@ -38,9 +40,11 @@ public class WebServerActivity extends ActionBarActivity {
         setContentView(R.layout.activity_web_server);
 
         btn = (Button) findViewById(R.id.button);
+        dbBtn = (Button) findViewById(R.id.button2);
         logText = (TextView) findViewById(R.id.textView);
 
         btn.setOnClickListener(listener);
+        dbBtn.setOnClickListener(listener);
     }
 
     View.OnClickListener listener = new View.OnClickListener() {
@@ -50,11 +54,30 @@ public class WebServerActivity extends ActionBarActivity {
                 case R.id.button:
                     startServerProcess(serverProcess, logText);
                     break;
+                case R.id.button2:
+                    startDBServerProcess(serverProcess, logText);
                 default:
 
             }
         }
     };
+
+    private void startDBServerProcess(Process serverProcess, TextView logText) {
+        String appFileDirectory = getFilesDir().getPath();
+
+        copyAssetsExecute("_install_mysql.zip", appFileDirectory);
+
+        if (serverProcess == null) {
+            //start db server or initial db server
+            File mysqlZip = new File(appFileDirectory + "_install_mysql.zip");
+
+            //doDecompress(mysqlZip, desDir);
+        }
+        else {
+            logText.setText("mysql db server has started.");
+        }
+
+    }
 
     private void startServerProcess(Process serverProcess, TextView logText) {
         String appFileDirectory = getFilesDir().getPath();

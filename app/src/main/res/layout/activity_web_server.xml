@@ -18,6 +18,12 @@
             android:text="啟動 server"
             android:id="@+id/button" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button2"
+            android:text="啟動 MySQL db" />
+
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
